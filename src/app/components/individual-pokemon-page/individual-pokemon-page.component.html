@@ -1,0 +1,7 @@
+<div *ngIf="pokemon">
+    <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
+    <h2>{{pokemon.name}}</h2>
+    <p>Type: {{pokemon.type}}</p>
+    <p>Abilities: {{pokemon.abilities}}</p>
+    <!-- Add further details as needed -->
+  </div>
