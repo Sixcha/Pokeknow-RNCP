@@ -3,6 +3,7 @@ import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',
+  standalone: true,
   templateUrl: './pokemon-list.component.html',
 })
 export class PokemonListComponent implements OnInit {

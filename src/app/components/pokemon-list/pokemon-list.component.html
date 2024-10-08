@@ -1,1 +1,13 @@
-<p>pokemon-list works!</p>
+<!-- <div *ngFor="let pokemon of pokemons">
+    <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
+    <h3>{{pokemon.name}}</h3>
+    <p>Type: {{pokemon.type}}</p>
+  </div> -->
+
+  @for(pokemon of pokemons; track pokemon.id){
+    <div>
+      <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
+      <h3>{{pokemon.name}}</h3>
+      <p>Type: {{pokemon.type}}</p>
+    </div>
+  }
