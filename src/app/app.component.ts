@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterOutlet,
     TabsComponent,
     PokemonListComponent,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

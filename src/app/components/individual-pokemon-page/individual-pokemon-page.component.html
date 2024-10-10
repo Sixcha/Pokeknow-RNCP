@@ -1,7 +1,24 @@
-<div *ngIf="pokemon">
-    <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
-    <h2>{{pokemon.name}}</h2>
-    <p>Type: {{pokemon.type}}</p>
-    <p>Abilities: {{pokemon.abilities}}</p>
-    <!-- Add further details as needed -->
-  </div>
+
+  @if(pokemon){
+    <div>
+      <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
+      <h2>{{pokemon.name}}</h2>
+      <p>Type: {{pokemon.type1}}</p>
+      @if(pokemon.type2){
+        <p>{{pokemon.type2}}</p>
+      }
+      <p>HP: {{pokemon.hp}} + {{pokemon.vitality}} = {{pokemon.hp + pokemon.vitality}}</p>
+      <p>Strength: {{pokemon.strength}} / {{pokemon.max_strength}}</p>
+      <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
+      <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
+      <p>Vitality: {{pokemon.vitality}} / {{pokemon.max_vitality}}</p>
+      <p>Special: {{pokemon.special}} / {{pokemon.max_special}}</p>
+      <p>Insight: {{pokemon.insight}} / {{pokemon.max_insight}}</p>
+      <p>Ability 1: {{pokemon.ability1}}</p>
+      <p>Ability 2: {{pokemon.ability2}}</p>
+      <p>Hidden Ability: {{pokemon.hidden_ability}}</p>
+      <p>Recommended Rank: {{pokemon.recommended_rank}}</p>
+      <button>Add to team</button>
+    </div>
+  }
+

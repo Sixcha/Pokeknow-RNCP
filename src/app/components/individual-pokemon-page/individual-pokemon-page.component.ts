@@ -21,7 +21,7 @@ export class IndividualPokemonPageComponent implements OnInit {
 
   getPokemon(id: string): void {
     this.pokemonService.getPokemon(id).subscribe((data) => {
-      this.pokemon = data;
+      this.pokemon = data[0];
     });
   }
 }
