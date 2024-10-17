@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const secretKey = "yourSecretKey"; 
+const secretKey = process.env.SECRET_KEY; 
 
 const db = mysql.createConnection({
   host: process.env.HOST,

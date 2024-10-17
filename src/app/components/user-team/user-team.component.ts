@@ -17,14 +17,14 @@ import { PokemonService } from '../../services/pokemon.service';
 export class UserTeamComponent implements OnInit {
   team = model<any[]>([])
   pokemonImages: { [key: string]: string } = {};
-  test = computed(() => {
+  teamMapped = computed(() => {
     return this.team().map(row => row = row.pokemon_no)
   })
   pokemonTreated = model<any[]>([])
 
-  test2 = effect(() =>{
-    if (!!this.test()[0]){
-      for (const row of this.test()) {
+  loadTrigger = effect(() =>{
+    if (!!this.teamMapped()[0]){
+      for (const row of this.teamMapped()) {
         this.loadIndividualPokemon(row)
       }
     }
