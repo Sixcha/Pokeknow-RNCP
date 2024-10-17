@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 const secretKey = process.env.SECRET_KEY; 
 
 const db = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE
+  host: 'database-1.cb40csgewxdn.eu-north-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Roz3nCh41nz+',
+  database: 'database-1'
 });
 
 db.connect((err) => {
