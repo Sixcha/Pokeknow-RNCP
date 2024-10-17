@@ -8,7 +8,9 @@ const dotenv = require('dotenv')
 
 const router = express.Router()
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://pokeknow-rncp.vercel.app/'
+}));
 app.use(bodyParser.json());
 
 const secretKey = process.env.SECRET_KEY; 
@@ -17,7 +19,8 @@ const db = mysql.createConnection({
   host: 'database-1.cb40csgewxdn.eu-north-1.rds.amazonaws.com',
   user: 'admin',
   password: 'Roz3nCh41nz+',
-  database: 'database-1'
+  database: 'database-1',
+  port: 3306
 });
 
 db.connect((err) => {
