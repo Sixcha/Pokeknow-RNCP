@@ -3,20 +3,10 @@
     <h3>{{pokemon.name}}</h3>
     <p>Type: {{pokemon.type}}</p>
   </div> -->
-  <router-outlet></router-outlet>
   <div class="flex-list">
     @for(pokemon of pokemons; track pokemon.id){
-      <div class="pokemon-card">
-        <a class="link" routerLink="/pokemon/{{pokemon.no}}">
-          <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
-          <h3>{{pokemon.name}}</h3>
-          <p>Type: {{pokemon.type1}}</p>
-          @if(pokemon.type2 !== ""){
-            <p>Type: {{pokemon.type2}}</p>
-    
-          }
-        </a>
-  
+      <div class="card-fix">
+        <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages[pokemon.name]"></app-pokemon-card>
       </div>
     }
   </div>

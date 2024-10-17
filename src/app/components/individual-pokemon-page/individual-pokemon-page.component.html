@@ -18,7 +18,7 @@
       <p>Ability 2: {{pokemon.ability2}}</p>
       <p>Hidden Ability: {{pokemon.hidden_ability}}</p>
       <p>Recommended Rank: {{pokemon.recommended_rank}}</p>
-      <button>Add to team</button>
+      <button (click)="addToTeam(pokemon.no)">Add to team</button>
     </div>
   }
 

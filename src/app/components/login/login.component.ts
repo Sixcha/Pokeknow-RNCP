@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgCookieService } from '../../services/ng-cookie.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,17 @@ export class LoginComponent {
   username = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private cookieService: NgCookieService) {}
 
   onLogin() {
     this.authService.login(this.username, this.password).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: (res) => this.onComplete(res),
       error: (err) => console.error('Login failed', err),
     });
+  }
+
+  onComplete(res:any){
+    this.cookieService.setCookie("SESSION", res.token);
+    window.location.href= "pokeknow.alwaysdata.net/pokemon-list"
   }
 }

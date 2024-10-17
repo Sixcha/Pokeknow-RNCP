@@ -1,7 +1,13 @@
 
 <nav class="router-link">
     <a class="link" routerLink="/pokemon-list">Pokémon List</a>
-    <a class="link" routerLink="/user-team">User Team</a>
-    <a class="link" routerLink="/profile">Profile</a>
+    @if(!!isLoggedIn()){
+      <a class="link" routerLink="/user-team">User Team</a>
+      <a class="link" routerLink="/profile">Profile</a>
+    }
+    @else{
+      <a class="link" routerLink="/signup">Sign Up</a>
+      <a class="link" routerLink="/login">Login</a>
+    }
   </nav>
 <router-outlet></router-outlet>

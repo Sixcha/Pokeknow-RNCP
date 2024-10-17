@@ -1,6 +1,5 @@
-<div *ngIf="user">
-    <h2>{{user.username}}</h2>
-    <p>Email: {{user.email}}</p>
-    <p>Role: {{user.role}}</p>
-    <!-- <button (click)="editProfile()">Edit Profile</button> -->
-  </div>
+  @if(username() !== ''){
+    <p>Username: {{username()}}</p>
+    <p>Role: {{isAdmin() ? 'Admin' : 'Not Admin'}}</p>
+    <button (click)="disconnect()">Disconnect</button>
+  }

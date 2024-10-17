@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
+import { TeamService } from '../../services/team.service';
+import { NgCookieService } from '../../services/ng-cookie.service';
 
 @Component({
   selector: 'app-individual-pokemon-page',
@@ -11,7 +13,9 @@ export class IndividualPokemonPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private teamService: TeamService,
+    private cookieService: NgCookieService
   ) {}
 
   ngOnInit(): void {
@@ -23,5 +27,12 @@ export class IndividualPokemonPageComponent implements OnInit {
     this.pokemonService.getPokemon(id).subscribe((data) => {
       this.pokemon = data[0];
     });
+  }
+
+  addToTeam(pokemonId:string){
+    const user = this.cookieService.readCookieDecodeId("SESSION")
+    console.log(typeof user, user,typeof pokemonId, pokemonId)
+
+    this.teamService.addToTeam(user , pokemonId)
   }
 }

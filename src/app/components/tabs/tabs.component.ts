@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { NgCookieService } from '../../services/ng-cookie.service';
 
 
 
@@ -14,5 +15,9 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './tabs.component.scss'
 })
 export class TabsComponent {
+  
+  constructor(private cookieService: NgCookieService){}
+
+  isLoggedIn = signal<boolean>(!!this.cookieService.readCookie('SESSION'))
 
 }

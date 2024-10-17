@@ -19,9 +19,22 @@ export class SignupComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSignup() {
-    this.authService.signup(this.username, this.password).subscribe({
+    console.log(this.username, this.password)
+    this.authService.signup(this.escapeHtml(this.username), this.escapeHtml(this.password)).subscribe({
       next: () => this.router.navigate(['/login']),
       error: (err) => console.error('Signup failed', err),
     });
+  }
+
+  escapeHtml(text:any) {
+    let map:any = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, function(m:any) { return map[m]; });
   }
 }
