@@ -16,10 +16,10 @@ app.use(bodyParser.json());
 const secretKey = process.env.SECRET_KEY; 
 
 const db = mysql.createConnection({
-  host: 'database-1.cb40csgewxdn.eu-north-1.rds.amazonaws.com',
+  host: 'database-2.cb40csgewxdn.eu-north-1.rds.amazonaws.com',
   user: 'admin',
   password: 'Roz3nCh41nz+',
-  database: 'database-1',
+  database: 'pokeknow',
   port: 3306
 });
 
