@@ -8,9 +8,7 @@ const dotenv = require('dotenv')
 
 const router = express.Router()
 const app = express();
-app.use(cors({
-  origin: 'https://pokeknow-rncp.vercel.app/'
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 const secretKey = process.env.SECRET_KEY; 
