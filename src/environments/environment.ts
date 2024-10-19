@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://13.60.179.137:3000'
+    apiUrl: 'https://poke-know-service.vercel.app'
   };
