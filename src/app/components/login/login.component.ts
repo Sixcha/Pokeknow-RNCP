@@ -28,6 +28,6 @@ export class LoginComponent {
 
   onComplete(res:any){
     this.cookieService.setCookie("SESSION", res.token);
-    window.location.href= "pokeknow.alwaysdata.net/pokemon-list"
+    window.location.href= "https://pokeknow-rncp.vercel.app/pokemon-list"
   }
 }
