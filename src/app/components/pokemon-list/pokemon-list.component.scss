@@ -1,3 +1,20 @@
+$breakpoint1: 1000px;
+$breakpoint2: 450px;
+
+@media (max-width: $breakpoint1) {
+    .flex-list{
+        grid-template-columns: repeat(4, 1fr); 
+        grid-row-gap: 2rem; 
+    }
+}
+
+@media (max-width: $breakpoint2) {
+    .flex-list{
+        grid-template-columns: repeat(2, 1fr); 
+        grid-row-gap: 1rem; 
+    }
+}
+
 .flex-list{
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
