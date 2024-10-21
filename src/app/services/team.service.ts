@@ -21,7 +21,8 @@ export class TeamService {
     });
   }
 
-  removeFromTeam(currentUser: string, pokemonId: string): Observable<any> {
+  removeFromTeam(currentUser: number, pokemonId: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${currentUser}/team/remove/${pokemonId}`);
   }
+
 }

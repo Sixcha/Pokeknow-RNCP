@@ -74,4 +74,14 @@ export class UserTeamComponent implements OnInit {
       })
     })
   }
+
+  removeFromTeam(pokemonId:string){
+    const user = this.cookieService.readCookieDecodeId("SESSION")
+    this.teamService.removeFromTeam(user , pokemonId).subscribe(
+      () => {
+        this.pokemonTreated.set(this.pokemonTreated().filter(pokemon => pokemon.id !== pokemonId)) 
+      }
+    )
+  }
+
 }

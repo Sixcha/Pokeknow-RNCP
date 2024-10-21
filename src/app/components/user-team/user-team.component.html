@@ -1,14 +1,8 @@
-<!-- <div *ngFor="let pokemon of team">
-    <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
-    <h3>{{pokemon.name}}</h3>
-    <p>Rank: {{pokemon.rank}}</p>
-    <button (click)="removeFromTeam(pokemon.id)">Remove</button>
-  </div> -->
   <div class="team">
     @for(pokemon of pokemonTreated(); track pokemon){
       <div class="card-fix">
         <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages()[pokemon.name]"></app-pokemon-card>
       </div>
-      <!-- <button (click)="removeFromTeam(pokemon.id)">Remove</button> -->
+      <button (click)="removeFromTeam(pokemon.id)">Remove</button>
     }
   </div>
