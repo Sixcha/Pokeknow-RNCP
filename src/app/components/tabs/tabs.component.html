@@ -1,13 +1,18 @@
-
-<nav class="router-link">
-    <a class="link" routerLink="/pokemon-list">Pokémon List</a>
-    @if(!!isLoggedIn()){
-      <a class="link" routerLink="/user-team">User Team</a>
-      <a class="link" routerLink="/profile">Profile</a>
-    }
-    @else{
-      <a class="link" routerLink="/signup">Sign Up</a>
-      <a class="link" routerLink="/login">Login</a>
-    }
-  </nav>
-<router-outlet></router-outlet>
+<div class="full-height">
+  <div class="center logo-div">
+    <img src="../../../assets/PokeKnow.png" alt="PokeKnow Logo">
+  </div>
+  <router-outlet></router-outlet>
+  <nav class="router-link">
+      <a class="link" routerLink="/pokemon-list">Pokémon List</a>
+      @if(!!isLoggedIn()){
+        <a class="link" routerLink="/user-team">User Team</a>
+        <a class="link" routerLink="/profile">Profile</a>
+      }
+      @else{
+        <a class="link" routerLink="/signup">Sign Up</a>
+        <a class="link" routerLink="/login">Login</a>
+      }
+    </nav>
+  
+</div>
