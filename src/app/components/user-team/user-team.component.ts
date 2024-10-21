@@ -13,10 +13,14 @@ import { PokemonService } from '../../services/pokemon.service';
     PokemonCardComponent
   ],
   templateUrl: './user-team.component.html',
+  styleUrl: './user-team.component.scss'
+
 })
 export class UserTeamComponent implements OnInit {
   team = model<any[]>([])
-  pokemonImages: { [key: string]: string } = {};
+  // pokemonImages: { [key: string]: string } = {};
+  pokemonImages =signal<{ [key: string]: string }>({});
+
   teamMapped = computed(() => {
     return this.team().map(row => row = row.pokemon_no)
   })
@@ -28,6 +32,8 @@ export class UserTeamComponent implements OnInit {
         this.loadIndividualPokemon(row)
       }
     }
+    this.getPokemonImages()
+
   })
     
   constructor(private teamService: TeamService, private cookieService: NgCookieService, private router: Router, private pokemonService: PokemonService) {}
@@ -47,7 +53,6 @@ export class UserTeamComponent implements OnInit {
     this.teamService.getTeam(user).subscribe((data) => {
       this.team.set(data)
     });
-    // this.loadIndividualPokemon()
 
   }
 
@@ -56,5 +61,17 @@ export class UserTeamComponent implements OnInit {
       this.pokemonService.getPokemon(data).subscribe((data: any[]) => {
         this.pokemonTreated().push(data[0]);
       });
+  }
+
+  getPokemonImages(){
+
+    this.pokemonTreated().forEach((pokemon) => {
+    console.log(pokemon)
+
+      const nameLowerCase = pokemon.name.toLowerCase();
+      this.pokemonService.getPokemonImageFromApi(nameLowerCase).subscribe((res: any) =>{
+        this.pokemonImages()[pokemon.name] = res.sprites.front_default;
+      })
+    })
   }
 }

@@ -1,12 +1,16 @@
 <router-outlet></router-outlet>
-<div class="pokemon-card">
-    <a class="link card-link" routerLink="/pokemon/{{pokemon().no}}">
-      <img [src]="image()" alt="{{pokemon().name}}">
-      <h3>{{pokemon().name}}</h3>
-      <p>Type: {{pokemon().type1}}</p>
-      @if(pokemon().type2 !== ""){
-        <p>Type: {{pokemon().type2}}</p>
-      }
+<!-- <div class="pokemon-card"> -->
+    <a class=" pokemon-card link card-link" routerLink="/pokemon/{{pokemon().no}}" [queryParams]="{ image: image() }">
+      <img [src]="image()" alt="{{pokemon().name}} Sprite">
+      <div>
+        <h3>{{pokemon().name}}</h3>
+        @if(pokemon().type2 !== ""){
+          <p>Type: {{pokemon().type1}}/{{pokemon().type2}}</p>
+        }
+        @else {
+          <p>Type: {{pokemon().type1}}</p>
+        }
+      </div>
     </a>
-  </div>
-  {{image()}}
+  <!-- </div> -->
+  <!-- {{image()}} -->

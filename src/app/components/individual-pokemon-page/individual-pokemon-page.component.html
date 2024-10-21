@@ -1,24 +1,65 @@
 
   @if(pokemon){
-    <div>
-      <img [src]="pokemon.imageURL" alt="{{pokemon.name}}">
-      <h2>{{pokemon.name}}</h2>
+    <div class="pokemon-flex">
+      <div class="pokemon-name">
+        <!-- <img [src]="pokemon.imageURL" alt="{{pokemon.name}} Sprite"> -->
+        <h2>{{pokemon.name}}</h2>
+      </div>
       <p>Type: {{pokemon.type1}}</p>
       @if(pokemon.type2){
         <p>{{pokemon.type2}}</p>
       }
-      <p>HP: {{pokemon.hp}} + {{pokemon.vitality}} = {{pokemon.hp + pokemon.vitality}}</p>
-      <p>Strength: {{pokemon.strength}} / {{pokemon.max_strength}}</p>
-      <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
-      <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
-      <p>Vitality: {{pokemon.vitality}} / {{pokemon.max_vitality}}</p>
-      <p>Special: {{pokemon.special}} / {{pokemon.max_special}}</p>
-      <p>Insight: {{pokemon.insight}} / {{pokemon.max_insight}}</p>
-      <p>Ability 1: {{pokemon.ability1}}</p>
-      <p>Ability 2: {{pokemon.ability2}}</p>
-      <p>Hidden Ability: {{pokemon.hidden_ability}}</p>
-      <p>Recommended Rank: {{pokemon.recommended_rank}}</p>
-      <button (click)="addToTeam(pokemon.no)">Add to team</button>
+      <div class="pokemon-flex-row">
+        <div class="pokemon-flex">
+          <p>HP: {{pokemon.hp}} + {{pokemon.vitality}} = {{pokemon.hp + pokemon.vitality}}</p>
+          <p>Strength: {{pokemon.strength}} / {{pokemon.max_strength}}</p>
+          <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
+          <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
+          <p>Vitality: {{pokemon.vitality}} / {{pokemon.max_vitality}}</p>
+          <p>Special: {{pokemon.special}} / {{pokemon.max_special}}</p>
+          <p>Insight: {{pokemon.insight}} / {{pokemon.max_insight}}</p>
+        </div>
+        <div class="pokemon-flex">
+          <p>Ability 1: {{pokemon.ability1}}</p>
+          <p>Ability 2: {{pokemon.ability2}}</p>
+          <p>Hidden Ability: {{pokemon.hidden_ability}}</p>
+          <p>Recommended Rank: {{pokemon.recommended_rank}}</p>
+        </div>
+      </div>
+
+      <button (click)="addToTeam(pokemon.no)" class="button">Add to team</button>
     </div>
+      <p>MOVES</p>
+    <div class="move-list">
+    @for(row of moves; track row){
+      <div class="move-card">
+        <div class="move-part">
+          <p>Name:{{row.movename}}</p>
+          <p>Rank:{{row.move_rank}}</p>
+          <p>Type:{{row.type}}</p>
+        </div>
+        <div class="move-part">
+          <p>Damage Type:{{row.damagetype}}</p>
+          <p>Damage Dice:{{row.damagedice}}</p>
+          <p>Damage Stat:{{row.damagestat}}</p>
+        </div>
+        <div class="move-part">
+          <p>Second Damage Stat:{{row.seconddamagestat}}</p>
+          <p>Accuracy Dice:{{row.accuracydice}}</p>
+          <p>Second Accuracy Dice:{{row.secondaccuracydice}}</p>
+        </div>
+        <div class="move-part">
+          <p>Target:{{row.target}}</p>
+          <p>Special:{{row.special}}</p>
+          <p>Description:{{row.description}}</p>
+        </div>
+
+      </div>
+
+  
+    }
+    </div>
+
+
   }
 

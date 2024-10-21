@@ -5,8 +5,13 @@
   </div> -->
   <div class="flex-list">
     @for(pokemon of pokemons; track pokemon.id){
-      <div class="card-fix">
-        <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages[pokemon.name]"></app-pokemon-card>
+      <div>
+        @if(pokemonImages[pokemon.name]){
+          <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages[pokemon.name]"></app-pokemon-card>
+        }
+        @else{
+          <app-pokemon-card [pokemon]="pokemon" [image]="'../../../assets/132.png'"></app-pokemon-card>
+        }
       </div>
     }
   </div>

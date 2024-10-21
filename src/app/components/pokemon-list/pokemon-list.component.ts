@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -21,17 +21,9 @@ export class PokemonListComponent implements OnInit {
   pokemons: any[] = [];
   pokemonImages: { [key: string]: string } = {};
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // this.pokemonService.getPokemons().subscribe((data) => {
-    //   this.pokemons = data;
-    //   this.pokemons.forEach(pokemon => {
-    //     this.pokemonService.getPokemonImageFromApi(pokemon.name).subscribe(image =>{
-    //       this.pokemonImages[pokemon.name] = image.sprites.front_default;
-    //     })
-    //   })
-    // });
     this.getPokemons();
 
   }
@@ -39,10 +31,17 @@ export class PokemonListComponent implements OnInit {
   getPokemons(): void {
     this.pokemonService.getPokemons().subscribe((data) => {
       this.pokemons = data;
+      this.getPokemonImages();
     });
   }
 
-  async getPokemonImages(){
-    
+  getPokemonImages(){
+
+    this.pokemons.forEach((pokemon) => {
+      const nameLowerCase = pokemon.name.toLowerCase();
+      this.pokemonService.getPokemonImageFromApi(nameLowerCase).subscribe((res: any) =>{
+        this.pokemonImages[pokemon.name] = res.sprites.front_default;
+      })
+    })
   }
 }

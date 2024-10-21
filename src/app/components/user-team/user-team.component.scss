@@ -1,7 +1,13 @@
 .team{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 1000px;
-    background-color: red;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    grid-column-gap: 3%;
+    grid-row-gap: 3rem; 
+    padding: 0 5%;
+    height: 100%;
+}
+
+.card-fix{
+    height: 10rem;
+    // margin-bottom: 0.5rem;
 }
