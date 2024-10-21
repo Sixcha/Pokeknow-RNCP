@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+export type PokemonType =
+  'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' |
+  'ground' | 'flying' | 'psychic' | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +45,6 @@ export class PokemonService {
     return this.http.get<any>(`${this.outerApiUrl}/pokemon`);
   }
 
-  // New method to get the image URL of a specific Pokémon
   getPokemonImageFromApi(pokemonName: string): Observable<any> {
     return this.http.get<any>(`${this.outerApiUrl}/pokemon/${pokemonName}`);
   }

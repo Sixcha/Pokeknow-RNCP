@@ -16,7 +16,6 @@ export class TeamService {
   }
 
   addToTeam(currentUser: number, pokemonId: string) {
-    console.log(currentUser, pokemonId)
     this.http.post<any>(`${this.apiUrl}/user/team/${currentUser}`, { pokemonId }).subscribe(data => {
       console.log(data)
     });
