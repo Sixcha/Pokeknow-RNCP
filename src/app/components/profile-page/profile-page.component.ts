@@ -41,7 +41,7 @@ export class ProfilePageComponent implements OnInit {
   
   disconnect(){
     this.cookieService.deleteCookie("SESSION")
-    window.location.href= "http://localhost:4200/pokemon-list"
+    window.location.href= "https://pokeknow-rncp.vercel.app/pokemon-list"
 
 
   }

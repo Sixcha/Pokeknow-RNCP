@@ -8,10 +8,8 @@ const dotenv = require('dotenv')
 
 const router = express.Router()
 const app = express();
-app.use(cors({
-  methods: ['GET', 'POST','PUT','DELETE','OPTIONS'],
-}));
-app.options('*', cors());
+app.use(cors());
+
 app.use(bodyParser.json());
 
 const secretKey = process.env.SECRET_KEY; 
