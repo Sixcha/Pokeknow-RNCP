@@ -6,14 +6,24 @@
   </div>
   <router-outlet></router-outlet>
   <nav class="router-link">
-      <a class="link" routerLink="/pokemon-list">Pokémon List</a>
+    <div>
+      <a class="link router-text" routerLink="/pokemon-list">Pokémon List</a>
+    </div>
       @if(!!isLoggedIn()){
-        <a class="link" routerLink="/user-team">User Team</a>
-        <a class="link" routerLink="/profile">Profile</a>
+        <div>
+          <a class="link router-text" routerLink="/user-team">User Team</a>
+        </div>
+        <div>
+          <a class="link router-text" routerLink="/profile">Profile</a>
+        </div>
       }
       @else{
-        <a class="link" routerLink="/signup">Sign Up</a>
-        <a class="link" routerLink="/login">Login</a>
+        <div>
+          <a class="link router-text" routerLink="/signup">Sign Up</a>
+        </div>
+        <div>
+          <a class="link router-text" routerLink="/login">Login</a>
+        </div>
       }
     </nav>
   

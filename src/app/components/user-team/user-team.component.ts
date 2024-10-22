@@ -18,17 +18,14 @@ import { PokemonService } from '../../services/pokemon.service';
 })
 export class UserTeamComponent implements OnInit {
   team = model<any[]>([])
-  // pokemonImages: { [key: string]: string } = {};
   pokemonImages =signal<{ [key: string]: string }>({});
-
-  teamMapped = computed(() => {
-    return this.team().map(row => row = row.pokemon_no)
-  })
   pokemonTreated = model<any[]>([])
 
   loadTrigger = effect(() =>{
-    if (!!this.teamMapped()[0]){
-      for (const row of this.teamMapped()) {
+    if (!!this.team()[0]){
+      console.log('loadtrigger', this.team()[0])
+      for (const row of this.team()) {
+        console.log('loadtrigger row', row)
         this.loadIndividualPokemon(row)
       }
     }
@@ -51,15 +48,18 @@ export class UserTeamComponent implements OnInit {
 
   loadTeam(user: string): void {
     this.teamService.getTeam(user).subscribe((data) => {
-      this.team.set(data)
+      console.log('loadTeam', data)
+      this.team.set(data.map(row => row = row.pokemon_no))
     });
 
   }
 
   loadIndividualPokemon(data: string){
-
+    let test:any[] = []
       this.pokemonService.getPokemon(data).subscribe((data: any[]) => {
+        test.push(data[0])
         this.pokemonTreated().push(data[0]);
+        console.log(this.pokemonTreated())
       });
   }
 
@@ -79,7 +79,10 @@ export class UserTeamComponent implements OnInit {
     const user = this.cookieService.readCookieDecodeId("SESSION")
     this.teamService.removeFromTeam(user , pokemonId).subscribe(
       () => {
-        this.pokemonTreated.set(this.pokemonTreated().filter(pokemon => pokemon.id !== pokemonId)) 
+        window.location.href= "http://localhost:4200/user-team"
+        // this.team.set(this.team().filter(no => no !== pokemonId))
+        // this.pokemonTreated.set(this.pokemonTreated().filter(pokemon => pokemon.no !== pokemonId))
+        // console.log(this.pokemonTreated())
       }
     )
   }

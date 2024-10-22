@@ -2,7 +2,8 @@
     @for(pokemon of pokemonTreated(); track pokemon){
       <div class="card-fix">
         <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages()[pokemon.name]"></app-pokemon-card>
+        <button class="button align-self-center" (click)="removeFromTeam(pokemon.no)">Remove</button>
+
       </div>
-      <!-- <button (click)="removeFromTeam(pokemon.no)">Remove</button> -->
     }
   </div>

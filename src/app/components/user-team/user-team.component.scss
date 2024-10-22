@@ -1,19 +1,6 @@
 $breakpoint1: 1000px;
-$breakpoint2: 450px;
-
-@media (max-width: $breakpoint1) {
-    .team{
-        grid-template-columns: repeat(4, 1fr); 
-        grid-row-gap: 2rem; 
-    }
-}
-
-@media (max-width: $breakpoint2) {
-    .team{
-        grid-template-columns: repeat(2, 1fr); 
-        grid-row-gap: 1rem; 
-    }
-}
+$breakpoint2: 700px;
+$breakpoint3: 450px;
 
 .team{
     display: grid;
@@ -22,9 +9,30 @@ $breakpoint2: 450px;
     grid-row-gap: 3rem; 
     padding: 0 5%;
     height: 100%;
+
+    @media screen and (max-width: $breakpoint1) {
+        grid-template-columns: repeat(4, 1fr); 
+        grid-row-gap: 2rem; 
+    }   
+
+    @media screen and (max-width: $breakpoint2) {
+        grid-template-columns: repeat(3, 1fr); 
+        grid-row-gap: 1.5rem; 
+    }
+
+    @media screen and (max-width: $breakpoint3) {
+        grid-template-columns: repeat(2, 1fr); 
+        grid-row-gap: 1rem; 
+    }
 }
 
 .card-fix{
     height: 10rem;
-    // margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.align-self-center{
+    margin-top: 0.5rem;
+    align-self: center;
 }

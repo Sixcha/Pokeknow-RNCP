@@ -1,5 +1,7 @@
+<div class="full-height">
   @if(username() !== ''){
     <p>Username: {{username()}}</p>
     <p>Role: {{isAdmin() ? 'Admin' : 'Not Admin'}}</p>
     <button (click)="disconnect()">Disconnect</button>
   }
+</div>
