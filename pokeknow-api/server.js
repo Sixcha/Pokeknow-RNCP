@@ -53,6 +53,30 @@ app.get('/pokemon/stats/:id', (req, res) => {
     });
   });
 
+  app.get('/pokemon/moves/:id', (req, res) => {
+    const query = `SELECT pokemonstats.no, pokemonmoves.move_rank, movedetails.* FROM pokemonstats JOIN pokemonmoves ON pokemonstats.no = pokemonmoves.pokemon_no JOIN movedetails ON movedetails.movename = pokemonmoves.move_name WHERE no = ${req.params.id}`;
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('Error fetching data:', err);
+        res.status(500).send('Error fetching data');
+        return;
+      }
+      res.json(results);
+    });
+  });
+
+    // app.get('/pokemon/abilities/:id', (req, res) => {
+  //   const query = `SELECT pokemonstats.ability1, pokemonabilities.name FROM pokemonstats WHERE no = ${req.params.id} INNER JOIN pokemonabilities ON pokemonstats.ability1 = pokemonabilities.name`;
+  //   db.query(query, (err, results) => {
+  //     if (err) {
+  //       console.error('Error fetching data:', err);
+  //       res.status(500).send('Error fetching data');
+  //       return;
+  //     }
+  //     res.json(results);
+  //   });
+  // });
+
   app.get('/user/profile/:id', (req, res) => {
     const query = `SELECT * FROM users WHERE id = '${req.params.id}'`;
     db.query(query, (err, results) => {
@@ -156,6 +180,19 @@ app.get('/pokemon/stats/:id', (req, res) => {
       }
       res.json(results)
     })
+  })
+
+  app.delete('/:user/team/remove/:id', async (req,res) => {
+    let {user, id} = req.params
+
+    const query = `DELETE FROM teams WHERE user_id = '${user}' AND pokemon_no = '${id}' LIMIT 1`
+    db.query(query, (err, results) => {
+        if(err){
+          console.error(err);
+          return
+        }
+        res.json(results)
+      })
   })
 
 
