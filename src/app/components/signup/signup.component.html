@@ -1,7 +1,10 @@
-<div class="full-height">
-    <form (submit)="onSignup()">
+@if(errors[0]){
+    <p class="error"> {{errors[0]}}</p>
+}
+<div class="full-height form-div">
+    <form class="form" (submit)="onSignup()">
         <input type="text" [(ngModel)]="username" name="username" placeholder="Username" required />
         <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
-        <button type="submit">Sign Up</button>
+        <button class="button" type="submit">Sign Up</button>
     </form>
 </div>

@@ -1,3 +1,29 @@
 .full-height{
     height: 100%;
 }
+.form-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #3b4cca;
+    background-color: #1e2124;
+    padding: 3rem;
+    border-radius: 1rem;
+    >*{
+        margin: 1rem 0;
+    }
+    >input{
+        padding: 1rem;
+        width: 100%;
+        background-color: #424549;
+        color: white;
+        border-radius: 1rem;
+        border: 1px solid #3b4cca;
+    }
+}
