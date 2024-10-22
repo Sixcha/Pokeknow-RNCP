@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router, private cookieService: NgCookieService) {}
 
   onLogin() {
-    this.authService.login(this.username, this.password).subscribe({
+    this.authService.login(this.escapeHtml(this.username), this.escapeHtml(this.password)).subscribe({
       next: (res) => this.onComplete(res),
       error: (err) => console.error('Login failed', err),
     });
@@ -29,5 +29,17 @@ export class LoginComponent {
   onComplete(res:any){
     this.cookieService.setCookie("SESSION", res.token);
     window.location.href= "https://pokeknow-rncp.vercel.app/pokemon-list"
+  }
+
+  escapeHtml(text:any) {
+    let map:any = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, function(m:any) { return map[m]; });
   }
 }

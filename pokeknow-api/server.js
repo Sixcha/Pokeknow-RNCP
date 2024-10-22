@@ -118,6 +118,15 @@ app.get('/pokemon/stats/:id', (req, res) => {
 
   app.post('/signup' , async (req, res) => {
     let username = req.body.username;
+    const nameQuery = `SELECT * FROM users WHERE username = '${username}'`
+    db.query(nameQuery, (err, results) => {
+      if(err){
+        return res.status(500).json({ message: 'Error checking username', err });
+      }
+      if (results.length > 0) {
+        return res.status(200).json({ message: 'Username is already taken', available: false });
+      }
+    })
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     const query = `INSERT INTO users (username, password_hash) VALUES ('${username}','${hashedPassword}')`
       db.query(query, (err, results) => {
