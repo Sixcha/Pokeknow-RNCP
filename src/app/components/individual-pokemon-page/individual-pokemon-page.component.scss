@@ -1,10 +1,12 @@
+@use '../../../variables';
+
 .move-card{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 1px solid #3b4cca;
+    border: 1px solid variables.$tertiary-color;
     border-radius: 0.5rem;
-    background-color: #424549;
+    background-color: variables.$background-color;
     padding: 0.5rem;
 }
 

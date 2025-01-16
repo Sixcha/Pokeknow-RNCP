@@ -1,4 +1,4 @@
-  <div class="team">
+  <!-- <div class="team">
     @for(pokemon of pokemonTreated(); track pokemon){
       <div class="card-fix">
         <app-pokemon-card [pokemon]="pokemon" [image]="pokemonImages()[pokemon.name]"></app-pokemon-card>
@@ -6,4 +6,25 @@
 
       </div>
     }
-  </div>
+  </div> -->
+
+  <section class="full-height" aria-labelledby="user-team-header">
+    <h2 id="user-team-header">Your Pokémon Team</h2>
+    <ul class="team">
+      @for(pokemon of pokemonTreated(); track pokemon) {
+        <li class="card-fix">
+          <app-pokemon-card 
+            [pokemon]="pokemon" 
+            [image]="pokemonImages()[pokemon.name]"
+            attr.aria-label="{{pokemon.name}} Card">
+          </app-pokemon-card>
+          <button 
+            class="button align-self-center" 
+            (click)="removeFromTeam(pokemon.no)" 
+            attr.aria-label="Remove {{pokemon.name}} from team">
+            Remove
+          </button>
+        </li>
+      }
+    </ul>
+  </section>

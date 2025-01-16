@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, model } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
@@ -19,7 +19,12 @@ import { HttpClient } from '@angular/common/http';
 export class PokemonListComponent implements OnInit {
   @HostBinding('class.flex-list') _class = true;
   pokemons: any[] = [];
+  filteredPokemons: any[] = [];
+  currentPokemons: any[] = [];
   pokemonImages: { [key: string]: string } = {};
+  currentPage: number = 1;
+  pokemonPerPage: number = 30
+  totalPages: number = 0;
 
   constructor(private pokemonService: PokemonService, private http: HttpClient) {}
 
@@ -31,13 +36,29 @@ export class PokemonListComponent implements OnInit {
   getPokemons(): void {
     this.pokemonService.getPokemons().subscribe((data) => {
       this.pokemons = data;
-      this.getPokemonImages();
+      this.filteredPokemons = data;
+      this.totalPages = Math.ceil(data.length / this.pokemonPerPage);
+      this.updatePages()
     });
   }
 
-  getPokemonImages(){
+  updatePages(){
+    const startIndex = (this.currentPage - 1) * this.pokemonPerPage;
+    const endIndex = startIndex + this.pokemonPerPage;
+    this.currentPokemons = this.filteredPokemons.slice(startIndex, endIndex)
+    console.log(startIndex, endIndex, this.currentPokemons)
+    this.getPokemonImages();
+  }
 
-    this.pokemons.forEach((pokemon) => {
+  changePage(pageChange:number) {
+    if (this.currentPage + pageChange <= this.totalPages  && this.currentPage + pageChange >= 0){
+      this.currentPage += pageChange
+      this.updatePages()
+    }
+  }
+
+  getPokemonImages(){
+    this.currentPokemons.forEach((pokemon) => {
       const nameLowerCase = pokemon.name.toLowerCase();
       this.pokemonService.getPokemonImageFromApi(nameLowerCase).subscribe((res: any) =>{
         this.pokemonImages[pokemon.name] = res.sprites.front_default;

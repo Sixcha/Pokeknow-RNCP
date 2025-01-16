@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,7 @@ export class TeamService {
   }
 
   removeFromTeam(currentUser: number, pokemonId: string): Observable<any> {
+    console.log('service', currentUser, pokemonId)
     return this.http.delete<any>(`${this.apiUrl}/${currentUser}/team/remove/${pokemonId}`);
   }
 

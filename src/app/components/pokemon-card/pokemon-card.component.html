@@ -1,5 +1,4 @@
-<router-outlet></router-outlet>
-<!-- <div class="pokemon-card"> -->
+<!-- <router-outlet></router-outlet>
     <a class=" pokemon-card link card-link" routerLink="/pokemon/{{pokemon().no}}" [queryParams]="{ image: image() }">
       <img [src]="image()" alt="{{pokemon().name}} Sprite">
       <div>
@@ -11,6 +10,24 @@
           <p>Type: {{pokemon().type1}}</p>
         }
       </div>
-    </a>
-  <!-- </div> -->
-  <!-- {{image()}} -->
+    </a> -->
+
+  <router-outlet></router-outlet>
+<article class="pokemon-card link card-link">
+  <a 
+    class="pokemon-card link card-link" 
+    routerLink="/pokemon/{{pokemon().no}}" 
+    [queryParams]="{ image: image() }" 
+    attr.aria-label="View details about {{ pokemon().name }}">
+    <img [src]="image()" alt="{{pokemon().name}} Sprite">
+    <div>
+      <h3>{{pokemon().name}}</h3>
+      <p>Type: 
+        {{pokemon().type1}}
+        @if(pokemon().type2 !== "") {
+          / {{pokemon().type2}}
+        }
+      </p>
+    </div>
+  </a>
+</article>

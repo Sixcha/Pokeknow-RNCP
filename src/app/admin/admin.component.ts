@@ -19,12 +19,11 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     const {isAdmin} = jwtDecode(this.cookieservice.readCookie("SESSION")) as IUser
     if(!isAdmin){
-      window.location.href= "https://pokeknow-rncp.vercel.app/pokemon-list"
+      window.location.href= "http://localhost:4200/pokemon-list"
     }
     else{
       this.loadAdmin()
     }
-  
   }
 
   loadAdmin(){
@@ -44,10 +43,11 @@ export class AdminComponent implements OnInit {
   }
 
   toggleAdminStatus(user: any): void {
-    const newStatus = user.is_admin !== true;
+    const newStatus = !user.is_admin;
+
     this.adminService.updateAdminStatus(user.id, newStatus).subscribe(
-      (updatedUser) => {
-        user.is_admin = updatedUser.is_admin;
+      (response) => {
+        user.is_admin = newStatus;
       }
     );
   }

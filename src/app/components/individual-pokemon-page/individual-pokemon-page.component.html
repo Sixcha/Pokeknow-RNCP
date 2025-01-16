@@ -2,7 +2,6 @@
   @if(pokemon){
     <div class="pokemon-flex">
       <div class="pokemon-name">
-        <!-- <img [src]="pokemon.imageURL" alt="{{pokemon.name}} Sprite"> -->
         <h2>{{pokemon.name}}</h2>
       </div>
       <p>Type: {{pokemon.type1}}</p>
@@ -55,13 +54,65 @@
           <p>Special:{{row.special}}</p>
           <p>Description:{{row.description}}</p>
         </div>
-
       </div>
-
-  
     }
     </div>
-
-
   }
 
+
+ <!-- <article aria-labelledby="pokemon-header">
+  <div class="pokemon-flex">
+  <header id="pokemon-header">
+    <h1 class="pokemon-name">{{pokemon.name}}</h1>
+    <p>Type: {{pokemon.type1}} {{pokemon.type2 ? '/ ' + pokemon.type2 : ''}}</p>
+  </header>
+
+  <section aria-labelledby="stats-header">
+    <h2 id="stats-header">Stats</h2>
+    <div class="pokemon-stats">
+      <div>
+        <p>HP: {{pokemon.hp}} + {{pokemon.vitality}} = {{pokemon.hp + pokemon.vitality}}</p>
+        <p>Strength: {{pokemon.strength}} / {{pokemon.max_strength}}</p>
+        <p>Dexterity: {{pokemon.dexterity}} / {{pokemon.max_dexterity}}</p>
+        <p>Vitality: {{pokemon.vitality}} / {{pokemon.max_vitality}}</p>
+        <p>Special: {{pokemon.special}} / {{pokemon.max_special}}</p>
+        <p>Insight: {{pokemon.insight}} / {{pokemon.max_insight}}</p>
+      </div>
+      <div>
+        <p>Ability 1: {{pokemon.ability1}}</p>
+        <p>Ability 2: {{pokemon.ability2}}</p>
+        <p>Hidden Ability: {{pokemon.hidden_ability}}</p>
+        <p>Recommended Rank: {{pokemon.recommended_rank}}</p>
+      </div>
+    </div>
+    <button 
+      (click)="addToTeam(pokemon.no)" 
+      class="button"
+      attr.aria-label="Add {{pokemon.name}} to your team">
+      Add to team
+    </button>
+  </section>
+</div>
+
+  <section aria-labelledby="moves-header">
+    <h2 id="moves-header">Moves</h2>
+    <div class="move-list">
+      @for(row of moves; track row) {
+        <article class="move-card" attr.aria-labelledby="move-{{row.movename}}">
+          <h3 id="move-{{row.movename}}">{{row.movename}}</h3>
+          <p>Rank: {{row.move_rank}}</p>
+          <p>Type: {{row.type}}</p>
+          <p>Damage Type: {{row.damagetype}}</p>
+          <p>Damage Dice: {{row.damagedice}}</p>
+          <p>Damage Stat: {{row.damagestat}}</p>
+          <p>Second Damage Stat: {{row.seconddamagestat}}</p>
+          <p>Accuracy Dice: {{row.accuracydice}}</p>
+          <p>Second Accuracy Dice: {{row.secondaccuracydice}}</p>
+          <p>Target: {{row.target}}</p>
+          <p>Special: {{row.special}}</p>
+          <p>Description: {{row.description}}</p>
+        </article>
+      }
+    </div>
+  </section>
+</article> -->

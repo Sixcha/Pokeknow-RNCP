@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 
 export const routes: Routes = [
+    // {path: '', component: PokemonListComponent},
     {path: 'pokemon-list', component: PokemonListComponent},
     {path: 'user-team', component: UserTeamComponent},
     {path: 'profile', component: ProfilePageComponent},

@@ -1,8 +1,38 @@
-
-<div class="full-height form-div">
+<!-- <div class="full-height form-div">
   <form class="form" (submit)="onLogin()">
     <input type="text" [(ngModel)]="username" name="username" placeholder="Username" required />
     <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
     <button class="button" type="submit">Login</button>
   </form>
-</div>
+</div> -->
+
+<section class="full-height form-div" aria-labelledby="login-header">
+  <h2 id="login-header">Login</h2>
+  <!-- @if(errors.length !==0) {
+    @for(error of errors; track error){
+        <p class="error" role="alert">Error: {{error}}</p>
+    }
+    
+  } -->
+  <form class="form" (submit)="onLogin()" aria-describedby="login-instructions">
+    <label for="username" class="visually-hidden">Username</label>
+    <input 
+      type="text" 
+      id="username" 
+      [(ngModel)]="username" 
+      name="username" 
+      placeholder="Username" 
+      required 
+      aria-required="true">
+    <label for="password" class="visually-hidden">Password</label>
+    <input 
+      type="password" 
+      id="password" 
+      [(ngModel)]="password" 
+      name="password" 
+      placeholder="Password" 
+      required 
+      aria-required="true">
+    <button class="button" type="submit">Login</button>
+  </form>
+</section>

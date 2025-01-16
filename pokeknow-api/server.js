@@ -12,13 +12,13 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-const secretKey = process.env.SECRET_KEY; 
+const secretKey = 'Ihaveneverseenaduck'; 
 
 const db = mysql.createConnection({
-  host: 'db.3wa.io',
-  user: 'paulboraakcan',
-  password: '69dc08b104327ccc21be18113881d949',
-  database: 'paulboraakcan_pokeknow',
+  host: '127.0.0.1',
+  user: 'root',
+  password: 'Lar1ssa.',
+  database: 'pokeknow',
 });
 
 db.connect((err) => {
@@ -42,8 +42,8 @@ app.get('/pokemon/stats', (req, res) => {
 });
 
 app.get('/pokemon/stats/:id', (req, res) => {
-    const query = `SELECT * FROM pokemonstats WHERE no = ${req.params.id}`;
-    db.query(query, (err, results) => {
+    const query = `SELECT * FROM pokemonstats WHERE no = ?`;
+    db.query(query, [req.params.id], (err, results) => {
       if (err) {
         console.error('Error fetching data:', err);
         res.status(500).send('Error fetching data');
@@ -54,8 +54,8 @@ app.get('/pokemon/stats/:id', (req, res) => {
   });
 
   app.get('/pokemon/moves/:id', (req, res) => {
-    const query = `SELECT pokemonstats.no, pokemonmoves.move_rank, movedetails.* FROM pokemonstats JOIN pokemonmoves ON pokemonstats.no = pokemonmoves.pokemon_no JOIN movedetails ON movedetails.movename = pokemonmoves.move_name WHERE no = ${req.params.id}`;
-    db.query(query, (err, results) => {
+    const query = `SELECT pokemonstats.no, pokemonmoves.move_rank, movedetails.* FROM pokemonstats JOIN pokemonmoves ON pokemonstats.no = pokemonmoves.pokemon_no JOIN movedetails ON movedetails.movename = pokemonmoves.move_name WHERE no = ?`;
+    db.query(query, [req.params.id], (err, results) => {
       if (err) {
         console.error('Error fetching data:', err);
         res.status(500).send('Error fetching data');
@@ -78,8 +78,8 @@ app.get('/pokemon/stats/:id', (req, res) => {
   // });
 
   app.get('/user/profile/:id', (req, res) => {
-    const query = `SELECT * FROM users WHERE id = '${req.params.id}'`;
-    db.query(query, (err, results) => {
+    const query = `SELECT * FROM users WHERE id = ?`;
+    db.query(query, [req.params.id], (err, results) => {
       if (err) {
         console.error('Error fetching data:', err);
         res.status(500).send('Error fetching data');
@@ -90,8 +90,8 @@ app.get('/pokemon/stats/:id', (req, res) => {
   })
 
   app.get('/user/team/:id', (req, res) =>{
-    const query = `SELECT * FROM teams WHERE user_id = '${req.params.id}'`; 
-    db.query(query, (err, results) => {
+    const query = `SELECT * FROM teams WHERE user_id = ?`; 
+    db.query(query, [req.params.id], (err, results) => {
       if (err) {
         console.error('Error fetching data:', err);
         res.status(500).send('Error fetching data');
@@ -102,12 +102,11 @@ app.get('/pokemon/stats/:id', (req, res) => {
   })
 
   app.post('/user/team/:id', async (req,res) => {
-    let user = req.params.id
-    let pokemon = req.body.pokemonId
-    console.log(user,pokemon)
+    const user = req.params.id
+    const pokemon = req.body.pokemonId
 
-    const query = `INSERT INTO teams (user_id, pokemon_no) VALUES ('${user}','${pokemon}')`
-      db.query(query, (err, results) => {
+    const query = `INSERT INTO teams (user_id, pokemon_no) VALUES (?, ?)`
+      db.query(query, [user, pokemon], (err, results) => {
         if(err){
           console.error(err);
           return
@@ -117,9 +116,10 @@ app.get('/pokemon/stats/:id', (req, res) => {
   })
 
   app.post('/signup' , async (req, res) => {
-    let username = req.body.username;
-    const nameQuery = `SELECT * FROM users WHERE username = '${username}'`
-    db.query(nameQuery, (err, results) => {
+    const username = req.body.username;
+
+    const nameQuery = `SELECT * FROM users WHERE username = ?`
+    db.query(nameQuery, [username], (err, results) => {
       if(err){
         return res.status(500).json({ message: 'Error checking username', err });
       }
@@ -127,9 +127,10 @@ app.get('/pokemon/stats/:id', (req, res) => {
         return res.status(200).json({ message: 'Username is already taken', available: false });
       }
     })
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-    const query = `INSERT INTO users (username, password_hash) VALUES ('${username}','${hashedPassword}')`
-      db.query(query, (err, results) => {
+
+    // const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    const query = `INSERT INTO users (username, password_hash) VALUES (? , ?)`
+      db.query(query, [username, req.body.password], (err, results) => {
         if(err){
           console.error(err);
           return
@@ -140,8 +141,10 @@ app.get('/pokemon/stats/:id', (req, res) => {
 
   app.post('/login' , (req, res) => {
     const { username, password } = req.body;
+    
+    const query = `SELECT * FROM users WHERE username = ?`
 
-    db.query(`SELECT * FROM users WHERE username = '${username}'`,(err, results) => {
+    db.query(query, [username], (err, results) => {
       if (err){
         console.error(err)
       }
@@ -166,23 +169,36 @@ app.get('/pokemon/stats/:id', (req, res) => {
   })
   
   app.put('/users/:id/admin-status', async (req, res) => {
-    const user = req.params.id;
+    const userId = req.params.id;
     const { isAdmin } = req.body;
-    const role = isAdmin ? '0' : '1';
-    const query = `UPDATE users SET is_admin = '${role}' WHERE id = '${user}'`
-    db.query(query , (err, results) => {
+    const newRole = isAdmin ? '1' : '0';
+    const updateQuery = `UPDATE users SET is_admin = ? WHERE id = ?`
+    const selectQuery = `SELECT * FROM users WHERE id = ?`;
+
+    db.query(updateQuery , [newRole, userId], (err, results) => {
       if(err){
         console.error(err);
+        res.status(500).send('Failed to update admin status');
         return
       }
-      res.json(results)
     })
+
+    db.query(selectQuery, [userId], (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Failed to fetch updated user');
+        return;
+      }
+      console.log(updatedUser)
+      res.json(updatedUser[0]);
+    });
+
   })
 
   app.delete('/users/:id', async (req, res) => {
     const user = req.params.id;
-    const query = `DELETE FROM users WHERE id = '${user}'`
-    db.query(query , (err, results) => {
+    const query = `DELETE FROM users WHERE id = ?`
+    db.query(query , [user], (err, results) => {
       if(err){
         console.error(err);
         return
@@ -194,8 +210,8 @@ app.get('/pokemon/stats/:id', (req, res) => {
   app.delete('/:user/team/remove/:id', async (req,res) => {
     let {user, id} = req.params
 
-    const query = `DELETE FROM teams WHERE user_id = '${user}' AND pokemon_no = '${id}' LIMIT 1`
-    db.query(query, (err, results) => {
+    const query = `DELETE FROM teams WHERE user_id = ? AND pokemon_no = ? LIMIT 1`
+    db.query(query, [user, id], (err, results) => {
         if(err){
           console.error(err);
           return
