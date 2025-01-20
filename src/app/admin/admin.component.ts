@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     const {isAdmin} = jwtDecode(this.cookieservice.readCookie("SESSION")) as IUser
     if(!isAdmin){
-      window.location.href= "http://localhost:4200/pokemon-list"
+      window.location.href= "https://pokeknow-rncp.vercel.app"
     }
     else{
       this.loadAdmin()

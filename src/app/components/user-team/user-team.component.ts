@@ -93,7 +93,7 @@ export class UserTeamComponent implements OnInit {
     const user = this.cookieService.readCookieDecodeId("SESSION")
     this.teamService.removeFromTeam(user , pokemonId).subscribe(
       () => {
-        window.location.href= "http://localhost:4200/user-team"
+        window.location.href= "https://pokeknow-rncp.vercel.app/user-team"
         // this.team.set(this.team().filter(no => no !== pokemonId))
         // this.pokemonTreated.set(this.pokemonTreated().filter(pokemon => pokemon.no !== pokemonId))
         // console.log(this.pokemonTreated())
