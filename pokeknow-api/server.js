@@ -4,7 +4,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv').config()
 
 const router = express.Router()
 const app = express();
@@ -12,13 +12,13 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-const secretKey = 'Ihaveneverseenaduck'; 
+const secretKey = process.env.SECRET_KEY; 
 
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'Lar1ssa.',
-  database: 'pokeknow',
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 db.connect((err) => {
@@ -28,6 +28,23 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
+
+function authenticateToken(req, res, next) {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    console.error('No token provided');
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, secretKey, (err, user) => {
+    if (err) {
+      console.error('JWT verification error:', err.message);
+      return res.sendStatus(403);
+    }
+    req.user = user;
+    next();
+  });
+}
 
 app.get('/pokemon/stats', (req, res) => {
   const query = 'SELECT * FROM pokemonstats';
@@ -77,7 +94,12 @@ app.get('/pokemon/stats/:id', (req, res) => {
   //   });
   // });
 
-  app.get('/user/profile/:id', (req, res) => {
+  app.get('/user/profile/:id', authenticateToken, (req, res) => {
+    
+    // if (req.user.id !== req.params.id) {
+    //   return res.status(403).send('Unauthorized access');
+    // }
+
     const query = `SELECT * FROM users WHERE id = ?`;
     db.query(query, [req.params.id], (err, results) => {
       if (err) {
@@ -89,7 +111,7 @@ app.get('/pokemon/stats/:id', (req, res) => {
     });
   })
 
-  app.get('/user/team/:id', (req, res) =>{
+  app.get('/user/team/:id', authenticateToken, (req, res) =>{
     const query = `SELECT * FROM teams WHERE user_id = ?`; 
     db.query(query, [req.params.id], (err, results) => {
       if (err) {
@@ -101,7 +123,7 @@ app.get('/pokemon/stats/:id', (req, res) => {
     });
   })
 
-  app.post('/user/team/:id', async (req,res) => {
+  app.post('/user/team/:id' , async (req,res) => {
     const user = req.params.id
     const pokemon = req.body.pokemonId
 
@@ -151,8 +173,9 @@ app.get('/pokemon/stats/:id', (req, res) => {
       if (!results[0] ||!(bcrypt.compareSync(password, results[0].password_hash))){
         return res.status(401).json({ error: "Invalid credentials" });
       }
-        const token = jwt.sign({ userId: results[0].id, isAdmin: results[0].is_admin }, secretKey, { expiresIn: '1h' });
-        res.cookie("SESSION", token, {httpOnly:true, secure:true})
+      console.log(typeof results, results)
+        const token = jwt.sign({ userId: results[0].id, userName: results[0].username, isAdmin: results[0].is_admin }, secretKey, { expiresIn: '6h' });
+        res.cookie("SESSION", token)
         return res.status(200).json({ message: "Login successful", token });
     })
   })

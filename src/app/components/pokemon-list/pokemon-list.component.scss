@@ -1,6 +1,7 @@
-$breakpoint1: 1000px;
-$breakpoint2: 700px;
-$breakpoint3: 450px;
+@use '../../../variables';
+// $breakpoint1: 1000px;
+// $breakpoint2: 700px;
+// $breakpoint3: 450px;
 
 .flex-list{
     display: grid;
@@ -10,24 +11,78 @@ $breakpoint3: 450px;
     padding: 0 5%;
     list-style: none;
 
-    @media screen and (max-width: $breakpoint1) {
+    @media screen and (max-width: variables.$breakpoint-monitor) {
         grid-template-columns: repeat(4, 1fr); 
         grid-row-gap: 2rem; 
     }   
 
-    @media screen and (max-width: $breakpoint2) {
+    @media screen and (max-width: variables.$breakpoint-tablet) {
         grid-template-columns: repeat(3, 1fr); 
         grid-row-gap: 1.5rem; 
     }
 
-    @media screen and (max-width: $breakpoint3) {
+    @media screen and (max-width: variables.$breakpoint-phone) {
         grid-template-columns: repeat(2, 1fr); 
         grid-row-gap: 1rem; 
     }
 }
 
+.pokemon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
 
 .card-fix{
     width: 15%;
     margin-bottom: 2rem;
 }
+
+.pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagination button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: variables.$secondary-color;
+    background-color: variables.$tertiary-color;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .pagination button:hover:not([disabled]) {
+    background-color: #0063cc;
+    transform: scale(1.2);
+  }
+  
+  .pagination button:disabled {
+    background-color: #c0c0c0;
+    cursor: not-allowed;
+  }
+  
+  .pagination button span {
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
+
+  .pagination.left button::before {
+    margin-right: 0.5rem;
+  }
+  
+  .pagination.right button::after {
+    margin-left: 0.5rem;
+  }
+
+  .full-height{
+    height: 100%;
+  }

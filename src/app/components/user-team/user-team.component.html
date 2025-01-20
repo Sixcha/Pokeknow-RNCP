@@ -15,7 +15,7 @@
         <li class="card-fix">
           <app-pokemon-card 
             [pokemon]="pokemon" 
-            [image]="pokemonImages()[pokemon.name]"
+            [image]="pokemonImages[pokemon.name]"
             attr.aria-label="{{pokemon.name}} Card">
           </app-pokemon-card>
           <button 

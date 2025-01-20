@@ -17,28 +17,29 @@ import { PokemonService } from '../../services/pokemon.service';
 
 })
 export class UserTeamComponent implements OnInit {
-  team = model<any[]>([])
-  pokemonImages =signal<{ [key: string]: string }>({});
+  team: any[] = []
+  // pokemonImages =signal<{ [key: string]: string }>({});
+  pokemonImages: { [key: string]: string } = {};
+
   pokemonTreated = model<any[]>([])
 
-  loadTrigger = effect(() =>{
-    if (!!this.team()[0]){
-      console.log('loadtrigger', this.team()[0])
-      for (const row of this.team()) {
-        console.log('loadtrigger row', row)
-        this.loadIndividualPokemon(row)
-      }
-    }
-    this.getPokemonImages()
+  // loadTrigger = effect(() =>{
+  //   if (!!this.team[0]){
+  //     console.log('loadtrigger', this.team[0])
+  //     for (const row of this.team) {
+  //       this.loadIndividualPokemon(row)
+  //     }
+  //   }
 
-  })
+  // })
     
   constructor(private teamService: TeamService, private cookieService: NgCookieService, private router: Router, private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    const currentSession = this.cookieService.readCookieDecodeId("SESSION").toString()
+    const currentSessionId = this.cookieService.readCookieDecodeId("SESSION").toString()
+    const currentSession = this.cookieService.readCookie("SESSION")
     if(currentSession){
-      this.loadTeam(currentSession);
+      this.loadTeam(currentSession, currentSessionId);
     }
     else{
       this.router.navigate(['/login'])
@@ -46,34 +47,47 @@ export class UserTeamComponent implements OnInit {
     }
   }
 
-  loadTeam(user: string): void {
-    this.teamService.getTeam(user).subscribe((data) => {
-      console.log('loadTeam', data)
-      this.team.set(data.map(row => row = row.pokemon_no))
+  loadTeam(user: string, id: string): void {
+    this.teamService.getTeam(user, id).subscribe((data) => {
+      // this.team.set(data.map(row => row = row.pokemon_no))
+      this.team = data.map(row => row = row.pokemon_no)
+      console.log(this.team)
+      for (const row of this.team) {
+        this.loadIndividualPokemon(row)
+      }
     });
-
   }
 
   loadIndividualPokemon(data: string){
-    let test:any[] = []
       this.pokemonService.getPokemon(data).subscribe((data: any[]) => {
-        test.push(data[0])
-        this.pokemonTreated().push(data[0]);
-        console.log(this.pokemonTreated())
+        const currentPokemon = data[0]
+        this.pokemonTreated().push(currentPokemon);
+        this.getPokemonImages(currentPokemon)
+
       });
+
   }
 
-  getPokemonImages(){
+  getPokemonImages(pokemon:any){
 
-    this.pokemonTreated().forEach((pokemon) => {
-    console.log(pokemon)
+    // this.pokemonTreated().forEach((pokemon) => {
+    // console.log(pokemon)
 
       const nameLowerCase = pokemon.name.toLowerCase();
       this.pokemonService.getPokemonImageFromApi(nameLowerCase).subscribe((res: any) =>{
-        this.pokemonImages()[pokemon.name] = res.sprites.front_default;
+        this.pokemonImages[pokemon.name] = res.sprites.front_default;
       })
-    })
+    // })
   }
+
+  // getPokemonImages(){
+  //   this.currentPokemons.forEach((pokemon) => {
+  //     const nameLowerCase = pokemon.name.toLowerCase();
+  //     this.pokemonService.getPokemonImageFromApi(nameLowerCase).subscribe((res: any) =>{
+  //       this.pokemonImages[pokemon.name] = res.sprites.front_default;
+  //     })
+  //   })
+  // }
 
   removeFromTeam(pokemonId:string){
     const user = this.cookieService.readCookieDecodeId("SESSION")

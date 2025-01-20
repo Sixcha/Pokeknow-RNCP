@@ -16,38 +16,47 @@
     <button (click)="changePage(1)" [disabled]="currentPage === totalPages">Next</button>
   </div> -->
 
-  <section>
-    <h2 class="visually-hidden">Pokémon List</h2>
-    <ul class="flex-list">
-      @for(pokemon of currentPokemons; track pokemon.id) {
-        <li>
-          @if(pokemonImages[pokemon.name]) {
-            <app-pokemon-card 
-              [pokemon]="pokemon" 
-              [image]="pokemonImages[pokemon.name]"
-              attr.aria-label="{{ pokemon.name }} Card">
-            </app-pokemon-card>
-          }
-          @else {
-            <app-pokemon-card 
-              [pokemon]="pokemon" 
-              [image]="'../../../assets/132.png'"
-              attr.aria-label="{{ pokemon.name }} Card">
-            </app-pokemon-card>
-          }
-        </li>
-      }
-    </ul>
-  </section>
-  <nav class="pagination" aria-label="Pagination">
-    <button 
-      (click)="changePage(-1)" 
-      [disabled]="currentPage === 1" 
-      aria-label="Previous Page">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button 
-      (click)="changePage(1)" 
-      [disabled]="currentPage === totalPages" 
-      aria-label="Next Page">Next</button>
-  </nav>
+  <div class="pokemon-container full-height">
+    <nav class="pagination left" aria-label="Pagination">
+      <button 
+        (click)="changePage(-1)" 
+        [disabled]="currentPage === 1" 
+        aria-label="Previous Page">← Previous</button>
+    </nav>
+
+    <section>
+      <h2 class="visually-hidden center">Pokémon List</h2>
+      <ul class="flex-list">
+        @for(pokemon of currentPokemons; track pokemon.id) {
+          <li>
+            @if(pokemonImages[pokemon.name]) {
+              <app-pokemon-card 
+                [pokemon]="pokemon" 
+                [image]="pokemonImages[pokemon.name]"
+                attr.aria-label="{{ pokemon.name }} Card">
+              </app-pokemon-card>
+            }
+            @else {
+              <app-pokemon-card 
+                [pokemon]="pokemon" 
+                [image]="'../../../assets/132.png'"
+                attr.aria-label="{{ pokemon.name }} Card">
+              </app-pokemon-card>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+
+    <nav class="pagination right" aria-label="Pagination">
+      <button 
+        (click)="changePage(1)" 
+        [disabled]="currentPage === totalPages" 
+        aria-label="Next Page">Next →</button>
+    </nav>
+
+  </div>
+  <span class="center">Page {{ currentPage }} of {{ totalPages }}</span>
+
+
   

@@ -8,8 +8,10 @@ html{
     font-size:62.5%;
     margin:0;
     padding:0;
+    height: 100%;
+
 }
-html, body { height: 100%; }
+// html, body { height: 100%; }
 body { 
     font-size:1.6rem;
     margin: 0;
@@ -17,6 +19,8 @@ body {
     background-color: variables.$primary-color;
     color: variables.$secondary-color;
     margin:0;
+    height: 100%;
+
  }
 .link{
     text-decoration: none;
@@ -31,17 +35,35 @@ img{
     justify-content: center;
 }
 .button{
-    background-color: variables.$background-color;
-    border-radius: 0.8rem;
+    // background-color: variables.$background-color;
+    // border-radius: 0.8rem;
+    // color: variables.$secondary-color;
+    // border: 2px solid variables.$tertiary-color;
+    min-width: 8rem;
+    min-height: 5rem;
+    // box-shadow: 0 0.3rem variables.$shadow-color;
+
+    //     &:active{
+    //     box-shadow: 0 0.1rem variables.$shadow-color;
+    //     transform: translateY(2px);
+
+    //     }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    // font-weight: bold;
     color: variables.$secondary-color;
-    border: 2px solid variables.$tertiary-color;
-    width: 8rem;
-    height: 5rem;
-    box-shadow: 0 0.3rem variables.$shadow-color;
+    background-color: variables.$tertiary-color;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 
-        &:active{
-        box-shadow: 0 0.1rem variables.$shadow-color;
-        transform: translateY(2px);
-
-        }
+    &:hover:not([disabled]) {
+        background-color: #0063cc;
+        transform: scale(1.1);
+      }
 }

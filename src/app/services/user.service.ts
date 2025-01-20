@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { JwtPayload } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // Get user profile data
-  getUserProfile(session: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/user/profile/${session}`);
+  getUserProfile(session: string, id: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${session}`
+    })
+    return this.http.get<any>(`${this.apiUrl}/user/profile/${id.toString()}`, { headers });
   }
 }

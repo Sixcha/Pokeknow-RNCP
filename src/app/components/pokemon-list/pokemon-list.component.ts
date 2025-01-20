@@ -46,7 +46,6 @@ export class PokemonListComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.pokemonPerPage;
     const endIndex = startIndex + this.pokemonPerPage;
     this.currentPokemons = this.filteredPokemons.slice(startIndex, endIndex)
-    console.log(startIndex, endIndex, this.currentPokemons)
     this.getPokemonImages();
   }
 
