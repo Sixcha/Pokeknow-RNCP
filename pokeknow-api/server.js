@@ -173,15 +173,14 @@ app.get('/pokemon/stats/:id', (req, res) => {
       if (!results[0] ||!(bcrypt.compareSync(password, results[0].password_hash))){
         return res.status(401).json({ error: "Invalid credentials" });
       }
-      console.log(typeof results, results)
         const token = jwt.sign({ userId: results[0].id, userName: results[0].username, isAdmin: results[0].is_admin }, secretKey, { expiresIn: '6h' });
-        res.cookie("SESSION", token)
+        res.cookie("SESSION", token, {httpOnly:true, secure:true})
         return res.status(200).json({ message: "Login successful", token });
     })
   })
 
   app.get('/users', (req, res) => {
-    const query = `SELECT * FROM users`
+    const query = `SELECT id, username, is_admin FROM users`
     db.query(query , (err, results) => {
       if(err){
         console.error(err);
