@@ -13,11 +13,20 @@
     <ul class="team">
       @for(pokemon of pokemonTreated(); track pokemon) {
         <li class="card-fix">
-          <app-pokemon-card 
-            [pokemon]="pokemon" 
-            [image]="pokemonImages[pokemon.name]"
-            attr.aria-label="{{pokemon.name}} Card">
-          </app-pokemon-card>
+          @if(pokemonImages[pokemon.name]) {
+            <app-pokemon-card 
+              [pokemon]="pokemon" 
+              [image]="pokemonImages[pokemon.name]"
+              attr.aria-label="{{ pokemon.name }} Card">
+            </app-pokemon-card>
+          }
+          @else {
+            <app-pokemon-card 
+              [pokemon]="pokemon" 
+              [image]="'../../../assets/132.png'"
+              attr.aria-label="{{ pokemon.name }} Card">
+            </app-pokemon-card>
+          }
           <button 
             class="button align-self-center" 
             (click)="removeFromTeam(pokemon.no)" 
