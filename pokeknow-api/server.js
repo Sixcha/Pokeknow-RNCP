@@ -139,6 +139,7 @@ app.get('/pokemon/stats/:id', (req, res) => {
 
   app.post('/signup' , async (req, res) => {
     const username = req.body.username;
+    const hashedPassword = req.body.hashedPassword;
 
     const nameQuery = `SELECT * FROM users WHERE username = ?`
     db.query(nameQuery, [username], (err, results) => {
@@ -152,7 +153,7 @@ app.get('/pokemon/stats/:id', (req, res) => {
 
     // const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     const query = `INSERT INTO users (username, password_hash) VALUES (? , ?)`
-      db.query(query, [username, req.body.password], (err, results) => {
+      db.query(query, [username, hashedPassword], (err, results) => {
         if(err){
           console.error(err);
           return
@@ -179,7 +180,7 @@ app.get('/pokemon/stats/:id', (req, res) => {
     })
   })
 
-  app.get('/users', (req, res) => {
+  app.get('/users', authenticateToken, (req, res) => {
     const query = `SELECT id, username, is_admin FROM users`
     db.query(query , (err, results) => {
       if(err){

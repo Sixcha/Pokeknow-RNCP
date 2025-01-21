@@ -15,7 +15,7 @@ export class AdminService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${session}`
     })
-    return this.http.get(`${this.baseUrl}/users`);
+    return this.http.get(`${this.baseUrl}/users`, {headers});
   }
 
   updateAdminStatus(userId: string, isAdmin: boolean): Observable<any> {
