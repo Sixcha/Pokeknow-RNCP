@@ -17,6 +17,8 @@ export class SignupComponent {
   username = '';
   password = '';
   errors:string[] = []
+  errorsShown:string[] = []
+
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -28,7 +30,9 @@ export class SignupComponent {
       this.errors.push('Username must be more than 3 characters')
     }
     if (this.errors.length>0){
-      console.log(this.errors) 
+      this.errorsShown = this.errors
+      console.log(this.errorsShown) 
+
       this.errors = []
       return
     }

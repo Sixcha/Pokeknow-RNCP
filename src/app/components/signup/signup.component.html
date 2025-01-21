@@ -11,8 +11,8 @@
 
 <section class="full-height form-div" aria-labelledby="signup-header">
   <h2 id="signup-header">Sign Up</h2>
-  @if(errors.length !==0) {
-    @for(error of errors; track error){
+  @if(errorsShown.length !==0) {
+    @for(error of errorsShown; track error){
         <p class="error" role="alert">Error: {{error}}</p>
     }
     

@@ -14,20 +14,21 @@ import { AdminService } from '../services/admin.service';
 export class AdminComponent implements OnInit {
   users: any[] = []
 
-  constructor(private cookieservice: NgCookieService, private adminService: AdminService){}
+  constructor(private cookieService: NgCookieService, private adminService: AdminService){}
 
   ngOnInit(): void {
-    const {isAdmin} = jwtDecode(this.cookieservice.readCookie("SESSION")) as IUser
+    const currentSession = this.cookieService.readCookie("SESSION")
+    const {isAdmin} = jwtDecode(currentSession) as IUser
     if(!isAdmin){
       window.location.href= "https://pokeknow-rncp.vercel.app"
     }
     else{
-      this.loadAdmin()
+      this.loadAdmin(currentSession)
     }
   }
 
-  loadAdmin(){
-    this.adminService.getUsers().subscribe(
+  loadAdmin(session:string){
+    this.adminService.getUsers(session).subscribe(
       (data) => {
         this.users = data;
       }

@@ -3,16 +3,55 @@
 .pokemon-card{
     border: 1px solid variables.$tertiary-color;
     border-radius: 1rem;
-    width: 90%;
-    height: 100%;
-
-}
-.card-link{
-    height: 100%;
+    padding: 0.5rem 1.5rem;
+    margin: 1.5rem 0;
     width: 100%;
+    height: 100%;
+    // font-size: 1.4rem;
+    // width: 25rem;
+    // height: 15rem;
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+        // width: 15rem;
+        // height: 10rem;
+    }
+
+    @media screen and (max-width: variables.$breakpoint-phone) {
+        // width: 8rem;
+        padding: 0;
+        // margin: 0;
+        font-size: 1rem;
+    }
+}
+
+.pokemon-card-individual{
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+    img{
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+          max-width: 50%;
+        }
+      }
+}
+
+.card-link{
+    // height: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     background-color: variables.$background-color;
+}
+
+.inner-div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+h3{
+    font-weight: lighter;
 }

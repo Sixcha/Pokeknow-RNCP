@@ -13,16 +13,16 @@
     </a> -->
 
   <router-outlet></router-outlet>
-<article class="pokemon-card link card-link">
+<article class="pokemon-card card-link">
   <a 
-    class="pokemon-card link card-link" 
+    class="pokemon-card-individual link card-link" 
     routerLink="/pokemon/{{pokemon().no}}" 
     [queryParams]="{ image: image() }" 
     attr.aria-label="View details about {{ pokemon().name }}">
     <img [src]="image()" alt="{{pokemon().name}} Sprite">
     <div>
       <h3>{{pokemon().name}}</h3>
-      <p>Type: 
+      <p>
         {{pokemon().type1}}
         @if(pokemon().type2 !== "") {
           / {{pokemon().type2}}

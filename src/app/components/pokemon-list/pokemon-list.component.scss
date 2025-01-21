@@ -1,29 +1,27 @@
 @use '../../../variables';
-// $breakpoint1: 1000px;
-// $breakpoint2: 700px;
-// $breakpoint3: 450px;
 
 .flex-list{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); 
-    grid-column-gap: 3%;
-    grid-row-gap: 3rem; 
-    padding: 0 5%;
+    display: flex;
+    // grid-template-columns: repeat(6, 1fr); 
+    // grid-column-gap: 3%;
+    // grid-row-gap: 3rem; 
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+    padding: 0 4%;
     list-style: none;
 
     @media screen and (max-width: variables.$breakpoint-monitor) {
-        grid-template-columns: repeat(4, 1fr); 
-        grid-row-gap: 2rem; 
+    padding: 0 3%;
+
     }   
 
     @media screen and (max-width: variables.$breakpoint-tablet) {
-        grid-template-columns: repeat(3, 1fr); 
-        grid-row-gap: 1.5rem; 
     }
 
     @media screen and (max-width: variables.$breakpoint-phone) {
-        grid-template-columns: repeat(2, 1fr); 
-        grid-row-gap: 1rem; 
+        padding: 0;
     }
 }
 
@@ -32,17 +30,39 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    width: 100%;
   }
+
+.list-fix{
+  min-height: 100%;
+}
 
 .card-fix{
     width: 15%;
     margin-bottom: 2rem;
 }
 
+.list-card{
+  width: 23rem;
+  height: 15rem;
+  margin: 1rem;
+
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    width: 15rem;
+    font-size: 1.4rem;
+    margin: 1rem 0.5rem;
+  }
+  @media screen and (max-width: variables.$breakpoint-phone) {
+    width: 12rem;
+    margin: 1rem 0;
+  }
+}
+
 .pagination {
     display: flex;
     flex-direction: column;
     align-items: center;
+
   }
 
   .pagination button {
@@ -58,6 +78,11 @@
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      height: 30rem;
+      width: 70%;
+
+  }
   }
   
   .pagination button:hover:not([disabled]) {
@@ -75,14 +100,34 @@
     margin: 0 0.5rem;
   }
 
-  .pagination.left button::before {
-    margin-right: 0.5rem;
+  .pagination.left  {
+    margin-left: 3rem;
+    button::before{
+      margin-right: 0.5rem;
+    }
+    @media screen and (max-width: variables.$breakpoint-phone) {
+      margin-left: 0;
+
+    }
   }
   
-  .pagination.right button::after {
-    margin-left: 0.5rem;
+  .pagination.right {
+    margin-right: 3rem;
+    button::after{
+      margin-left: 0.5rem;
+
+    }
+    @media screen and (max-width: variables.$breakpoint-phone) {
+      margin-right: 0;
+
+    }
   }
 
   .full-height{
     height: 100%;
+  }
+
+  span{
+    display: flex;
+    margin: 1rem 0 2rem 0;
   }

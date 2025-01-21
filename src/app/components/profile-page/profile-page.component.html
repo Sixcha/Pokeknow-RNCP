@@ -11,11 +11,11 @@
   @if(username() !== '') {
     <p>Username: {{username()}}</p>
     <p>Role: {{isAdmin() ? 'Admin' : 'Not Admin'}}</p>
-    <button 
-      (click)="disconnect()" 
-      class="button" 
-      attr.aria-label="Disconnect from {{username()}} account">
-      Disconnect
-    </button>
   }
+  <button 
+  (click)="disconnect()" 
+  class="button" 
+  attr.aria-label="Disconnect from {{username()}} account">
+  Disconnect
+</button>
 </section>

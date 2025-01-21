@@ -1,33 +1,44 @@
 @use '../../../variables' as responsive;
 
 .team{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); 
-    grid-column-gap: 3%;
-    grid-row-gap: 3rem; 
-    padding: 0 5%;
+    display: flex;
+    // grid-template-columns: repeat(6, 1fr); 
+    // grid-column-gap: 3%;
+    // grid-row-gap: 3rem; 
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+    padding: 0 4%;
+    list-style: none;
     height: 100%;
 
     @media screen and (max-width: responsive.$breakpoint-monitor) {
-        grid-template-columns: repeat(4, 1fr); 
-        grid-row-gap: 2rem; 
+        padding: 0 3%;
     }   
 
     @media screen and (max-width: responsive.$breakpoint-tablet) {
-        grid-template-columns: repeat(3, 1fr); 
-        grid-row-gap: 1.5rem; 
     }
 
     @media screen and (max-width: responsive.$breakpoint-phone) {
-        grid-template-columns: repeat(2, 1fr); 
-        grid-row-gap: 1rem; 
+        padding: 0;
     }
 }
 
 .card-fix{
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
+    width: 23rem;
+    height: 15rem;
+    margin: 1rem;
+  
+    @media screen and (max-width: responsive.$breakpoint-tablet) {
+      width: 15rem;
+      font-size: 1.4rem;
+      margin: 1rem 0.5rem;
+    }
+    @media screen and (max-width: responsive.$breakpoint-phone) {
+      width: 12rem;
+      margin: 1rem 0;
+    }
 }
 
 .align-self-center{
